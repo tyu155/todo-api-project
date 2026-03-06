@@ -1,4 +1,9 @@
 from fastapi import FastAPI
+from pydantic import BaseModel
+
+class Todo(BaseModel):
+    title: str
+    completed: bool = False
 
 app = FastAPI()
 
@@ -9,7 +14,7 @@ def get_todos():
     return todos
 
 @app.post("/todos")
-def add_todo(todo: str):
+def add_todo(todo: Todo):
     todos.append(todo)
     return {"message": "Todo added", "todo": todo}
 
